@@ -1,3 +1,5 @@
+"use client";
+
 import MainChatUi from "@/components/chatUiComponents/mainChatContainer";
 
 const ChatUi = () => {

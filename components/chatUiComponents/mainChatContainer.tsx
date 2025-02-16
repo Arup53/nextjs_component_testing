@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Send, User, Bot, Menu, MessagesSquare } from "lucide-react";
+import axios from "axios";
 
 interface Message {
   id: number;
@@ -16,7 +17,7 @@ const MainChatUi = () => {
   const [input, setInput] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -27,11 +28,23 @@ const MainChatUi = () => {
       isUser: true,
     };
 
+    const response = await axios.post(
+      "http://localhost:3000/chatRag",
+      {
+        test: "test",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(response);
+
     // Simulate AI response
     const aiResponse: Message = {
       id: messages.length + 2,
-      content:
-        "This is a simulated response. In a real application, this would be connected to an AI backend.",
+      content: `${response.data}`,
       isUser: false,
     };
 
@@ -91,7 +104,7 @@ const MainChatUi = () => {
             >
               <div
                 className={`p-2 rounded-full ${
-                  message.isUser ? "bg-gray-100" : "bg-emerald-500 text-white"
+                  message.isUser ? "bg-gray-100" : "bg-black text-white"
                 }`}
               >
                 {message.isUser ? <User size={20} /> : <Bot size={20} />}
