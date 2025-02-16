@@ -42,7 +42,7 @@ const MainChatUi = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <div
+      {/* <div
         className={`fixed md:static inset-y-0 left-0 transform ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition duration-200 ease-in-out bg-gray-900 text-white w-64 p-4 z-20`}
@@ -66,7 +66,7 @@ const MainChatUi = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col h-screen relative">

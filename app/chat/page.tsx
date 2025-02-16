@@ -1,4 +1,4 @@
-import MainChatUi from "@/components/chatUiComponents/main";
+import MainChatUi from "@/components/chatUiComponents/mainChatContainer";
 
 const ChatUi = () => {
   return <MainChatUi />;
