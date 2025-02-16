@@ -43,7 +43,7 @@ const items = [
 
 const DashboardContent = () => {
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarTrigger />
       </SidebarHeader>
