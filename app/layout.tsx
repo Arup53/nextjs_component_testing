@@ -30,10 +30,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {" "}
-        <div className="flex justify-center items-center">
+        <div className="flex gap-2 justify-center items-center">
           <Link href="/parent/child1">Child 1</Link>
           <Link href="/parent/child2">Child 2</Link>
           <Link href="/dashboard">Dashboard</Link>
+          <Link href="/chat">chat</Link>
         </div>
         {children}
       </body>
