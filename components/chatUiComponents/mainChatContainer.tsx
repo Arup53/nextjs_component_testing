@@ -12,6 +12,7 @@ interface Message {
 
 const MainChatUi = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, content: "Hello! How can I help you today?", isUser: false },
   ]);
@@ -26,6 +27,7 @@ const MainChatUi = () => {
   }, [messages]);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -58,6 +60,7 @@ const MainChatUi = () => {
 
     setMessages([...messages, userMessage, aiResponse]);
     setInput("");
+    setLoading(false);
   };
 
   return (
