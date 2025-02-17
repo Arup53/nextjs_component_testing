@@ -90,7 +90,7 @@ const MainChatUi = () => {
       </div> */}
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col h-[60vh] relative">
+      <div className="flex-1 flex flex-col h-[75vh] relative">
         {/* Mobile Header */}
         <div className="md:hidden bg-white border-b p-4 flex items-center">
           <button
