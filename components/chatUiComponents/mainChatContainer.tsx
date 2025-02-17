@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Send, User, Bot, Menu, MessagesSquare } from "lucide-react";
 import axios from "axios";
 
@@ -11,11 +11,19 @@ interface Message {
 }
 
 const MainChatUi = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, content: "Hello! How can I help you today?", isUser: false },
   ]);
   const [input, setInput] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const element = containerRef.current;
+      element.scrollTop = element.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +102,10 @@ const MainChatUi = () => {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-6">
+        <div
+          ref={containerRef}
+          className="flex-1 overflow-y-auto p-4 space-y-6"
+        >
           {messages.map((message) => (
             <div
               key={message.id}
