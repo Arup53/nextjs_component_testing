@@ -130,6 +130,17 @@ const MainChatUi = () => {
           ))}
         </div>
 
+        {loading && (
+          <div className="flex items-start gap-4 bg-gray-50 p-6 rounded-lg">
+            <div className="p-2 rounded-full bg-black text-white">
+              <Bot size={20} />
+            </div>
+            <div className="flex-1">
+              <p className="text-gray-800">Thinking...</p>
+            </div>
+          </div>
+        )}
+
         {/* Input Form */}
         <div className="border-t bg-white p-4">
           <form onSubmit={handleSubmit} className="max-w-3xl mx-auto relative">
