@@ -28,23 +28,23 @@ const MainChatUi = () => {
       isUser: true,
     };
 
-    const response = await axios.post(
-      "http://localhost:3000/chatRag",
-      {
-        test: "test",
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(response);
+    // const response = await axios.post(
+    //   "http://localhost:3000/chatRag",
+    //   {
+    //     test: "test",
+    //   },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    // console.log(response);
 
     // Simulate AI response
     const aiResponse: Message = {
       id: messages.length + 2,
-      content: `${response.data}`,
+      content: `How u doin`,
       isUser: false,
     };
 
@@ -53,7 +53,7 @@ const MainChatUi = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex  w-[60vw]  bg-gray-100 border border-gray-300">
       {/* Sidebar */}
       {/* <div
         className={`fixed md:static inset-y-0 left-0 transform ${
@@ -82,7 +82,7 @@ const MainChatUi = () => {
       </div> */}
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col h-screen relative">
+      <div className="flex-1 flex flex-col h-[60vh] relative">
         {/* Mobile Header */}
         <div className="md:hidden bg-white border-b p-4 flex items-center">
           <button
