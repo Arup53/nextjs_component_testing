@@ -2,6 +2,8 @@
 import Chart from "@/components/candlestickChartComponents/Chart";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import "dayjs";
+import { candleStickOption } from "@/util/chartOption";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
@@ -19,17 +21,19 @@ const Live = () => {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
-        // Transform data: each candle is [timestamp, open, high, low, close]
-        const seriesData = data.map((d) => [
-          d[0], // Timestamp
-          parseFloat(d[1]), // Open price
-          parseFloat(d[2]), // High price
-          parseFloat(d[3]), // Low price
-          parseFloat(d[4]), // Close price
-        ]);
 
-        setSeries([{ data: seriesData }]);
+        // Transform data: each candle is [timestamp, open, high, low, close]
+        const seriesData = data.map((d) => ({
+          x: new Date(d[0]),
+          y: [
+            parseFloat(d[1]),
+            parseFloat(d[2]),
+            parseFloat(d[3]),
+            parseFloat(d[4]),
+          ],
+        }));
+
+        setSeries(seriesData);
       } catch (error) {
         console.error("Error fetching Binance data:", error);
       }
@@ -38,34 +42,29 @@ const Live = () => {
     fetchData();
   }, []);
 
+  //   [
+  //     d[0], // Timestamp
+  //     parseFloat(d[1]), // Open price
+  //     parseFloat(d[2]), // High price
+  //     parseFloat(d[3]), // Low price
+  //     parseFloat(d[4]), // Close price
+  //   ]
   // ApexCharts options
-  const options = {
-    chart: {
-      type: "candlestick",
-      height: 350,
-    },
-    title: {
-      text: "BTC/USDT Candlestick Chart",
-      align: "left",
-    },
-    xaxis: {
-      type: "datetime",
-    },
-  };
 
   return (
     <div style={{ padding: "2rem" }}>
       <h1>Binance Candlestick Chart</h1>
       {series.length > 0 ? (
         <ReactApexChart
-          options={options}
-          series={series}
+          series={[{ data: series }]}
+          options={candleStickOption}
           type="candlestick"
           height={350}
         />
       ) : (
         <p>Loading data...</p>
       )}
+      koi
     </div>
   );
 };
