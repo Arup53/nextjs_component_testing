@@ -35,6 +35,7 @@ export default function RootLayout({
           <Link href="/parent/child2">Child 2</Link>
           <Link href="/dashboard">Dashboard</Link>
           <Link href="/chat">chat</Link>
+          <Link href="/live">chart</Link>
         </div>
         {children}
       </body>
