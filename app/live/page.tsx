@@ -1,8 +1,13 @@
-"use client";
-import Chart from "@/components/candlestickChartComponents/Chart";
+// import Chart from "@/components/candlestickChartComponents/Chart";
+
+import Stats from "@/components/Stastics/Statstics";
 
 const Live = () => {
-  return <Chart />;
+  return (
+    <div className="h-screen bg-slate-100">
+      <Stats />
+    </div>
+  );
 };
 
 export default Live;
