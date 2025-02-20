@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ChevronUp, ChevronDown, DollarSign } from "lucide-react";
+import { ChevronUp, ChevronDown } from "lucide-react";
 
 const TrendingData = ({ data }) => {
   console.log(data);

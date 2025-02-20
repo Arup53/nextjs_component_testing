@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CardTrending from "./trending/Card_Trending";
+import MarketCap from "./MarketCap/MarketCap";
 
 const Stats = () => {
   const [trending, setTrending] = useState([]);
@@ -30,6 +31,7 @@ const Stats = () => {
   return (
     <div className="flex gap-2">
       {trending.length > 0 && <CardTrending trending={trending} />}
+      <MarketCap />
     </div>
   );
 };
