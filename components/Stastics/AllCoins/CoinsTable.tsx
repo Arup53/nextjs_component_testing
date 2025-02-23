@@ -172,7 +172,7 @@ const CoinsTable = ({ coins, loading }) => {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
-                        {crypto.current_price}
+                        {`$${crypto.current_price.toLocaleString()}`}
                       </td>
                       {/* <td
                       className={`px-6 py-4 whitespace-nowrap text-sm text-right ${
@@ -198,7 +198,7 @@ const CoinsTable = ({ coins, loading }) => {
                         }`}
                       >
                         {crypto.price_change_percentage_24h < 0 ? "↓" : "↑"}
-                        {crypto.price_change_percentage_24h}
+                        {crypto.price_change_percentage_24h.toFixed(2)}%
                       </td>
                       {/* <td
                       className={`px-6 py-4 whitespace-nowrap text-sm text-right ${
@@ -217,10 +217,10 @@ const CoinsTable = ({ coins, loading }) => {
                       {crypto.change7d}
                     </td> */}
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
-                        {crypto.total_volume}
+                        {` $${crypto.total_volume.toLocaleString()}`}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
-                        {crypto.market_cap}
+                        {`$${crypto.market_cap.toLocaleString()}`}
                       </td>
                     </tr>
                   ))}
