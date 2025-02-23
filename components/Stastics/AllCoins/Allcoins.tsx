@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +10,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import CoinsTable from "./CoinsTable";
 
 const AllCoins = () => {
   const [coins, setCoins] = useState([]);
@@ -17,19 +18,17 @@ const AllCoins = () => {
   const perPage = 10; // Items per page
   const [loading, setLoading] = useState(false);
   const totalPages = 10; // Assuming 100 results, 10 per page
+  const firstRender = useRef(true);
+  const lastRequestTime = useRef(0);
 
   useEffect(() => {
     const fetchCoins = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(
-          `http://localhost:3000/coins?page=${page}&item=${perPage}`, // Fix: Close string properly
-          {
-            headers: {
-              Accept: "application/json", // Fix: "accept" should be "Accept" (though lowercase still works)
-            },
-          }
+        const res = await fetch(
+          `http://localhost:5000/coins?page=${page}&item=${perPage}`
         );
+        const data = await res.json();
         setCoins(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -40,11 +39,11 @@ const AllCoins = () => {
     fetchCoins();
   }, [page]);
 
-  console.log(coins);
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Crypto Market</h2>
-      {loading && <p>Loading...</p>}
+
+      <CoinsTable coins={coins} loading={loading} />
 
       {/* Pagination */}
       <div className="flex justify-center mt-6">
@@ -52,6 +51,9 @@ const AllCoins = () => {
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
+                className={`cursor-pointer ${
+                  page === 1 ? "pointer-events-none opacity-50" : ""
+                }`}
                 onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
                 disabled={page === 1}
               />
@@ -61,6 +63,9 @@ const AllCoins = () => {
             </span>
             <PaginationItem>
               <PaginationNext
+                className={`cursor-pointer ${
+                  page === totalPages ? "pointer-events-none opacity-50" : ""
+                }`}
                 onClick={() =>
                   setPage((prev) => (prev < totalPages ? prev + 1 : prev))
                 }
