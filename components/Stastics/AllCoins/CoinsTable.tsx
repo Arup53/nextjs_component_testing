@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Bitcoin,
   Feather as Ethereum,
@@ -6,6 +8,7 @@ import {
   CircleDollarSign,
 } from "lucide-react";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface CryptoData {
   id: number;
@@ -102,6 +105,12 @@ interface CryptoData {
 // ];
 
 const CoinsTable = ({ coins, loading }) => {
+  const router = useRouter();
+
+  const handleClick = (symbol) => {
+    router.push(`/coin/${symbol}`);
+  };
+
   console.log(coins);
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -153,28 +162,34 @@ const CoinsTable = ({ coins, loading }) => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {coins &&
-                  coins?.coins?.map((crypto, idx) => (
-                    <tr key={idx + 1} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {idx + 1}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="flex-shrink-0">TBD</div>
-                          <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">
-                              {crypto.name}
-                            </div>
-                            <div className="text-sm text-gray-500">
-                              {crypto.symbol.toUpperCase()}
+                  coins?.coins
+                    ?.filter((crypto) => crypto.symbol !== "usdt")
+                    .map((crypto, idx) => (
+                      <tr
+                        key={idx + 1}
+                        className="hover:bg-gray-50 cursor-pointer"
+                        onClick={() => handleClick(crypto.symbol)}
+                      >
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {idx + 1}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0">TBD</div>
+                            <div className="ml-4">
+                              <div className="text-sm font-medium text-gray-900">
+                                {crypto.name}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {crypto.symbol.toUpperCase()}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
-                        {`$${crypto.current_price.toLocaleString()}`}
-                      </td>
-                      {/* <td
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                          {`$${crypto.current_price.toLocaleString()}`}
+                        </td>
+                        {/* <td
                       className={`px-6 py-4 whitespace-nowrap text-sm text-right ${
                         crypto.trend1h === "up"
                           ? "text-green-600"
@@ -190,17 +205,17 @@ const CoinsTable = ({ coins, loading }) => {
                         : ""}{" "}
                       {crypto.change1h}
                     </td> */}
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm text-right ${
-                          crypto.price_change_percentage_24h > 0
-                            ? "text-green-600"
-                            : "text-red-600"
-                        }`}
-                      >
-                        {crypto.price_change_percentage_24h < 0 ? "↓" : "↑"}
-                        {crypto.price_change_percentage_24h.toFixed(2)}%
-                      </td>
-                      {/* <td
+                        <td
+                          className={`px-6 py-4 whitespace-nowrap text-sm text-right ${
+                            crypto.price_change_percentage_24h > 0
+                              ? "text-green-600"
+                              : "text-red-600"
+                          }`}
+                        >
+                          {crypto.price_change_percentage_24h < 0 ? "↓" : "↑"}
+                          {crypto.price_change_percentage_24h.toFixed(2)}%
+                        </td>
+                        {/* <td
                       className={`px-6 py-4 whitespace-nowrap text-sm text-right ${
                         crypto.trend7d === "up"
                           ? "text-green-600"
@@ -216,14 +231,14 @@ const CoinsTable = ({ coins, loading }) => {
                         : ""}{" "}
                       {crypto.change7d}
                     </td> */}
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
-                        {` $${crypto.total_volume.toLocaleString()}`}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
-                        {`$${crypto.market_cap.toLocaleString()}`}
-                      </td>
-                    </tr>
-                  ))}
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                          {` $${crypto.total_volume.toLocaleString()}`}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                          {`$${crypto.market_cap.toLocaleString()}`}
+                        </td>
+                      </tr>
+                    ))}
               </tbody>
             </table>
           </div>
