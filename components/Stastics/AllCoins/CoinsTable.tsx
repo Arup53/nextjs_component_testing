@@ -107,8 +107,8 @@ interface CryptoData {
 const CoinsTable = ({ coins, loading }) => {
   const router = useRouter();
 
-  const handleClick = (symbol) => {
-    const data = JSON.stringify({ message: "some data" }); // Convert object to string
+  const handleClick = (symbol, coinInfo) => {
+    const data = JSON.stringify(coinInfo); // Convert object to string
     router.push(`/coin/${symbol}?data=${encodeURIComponent(data)}`); // Encode to handle special characters
   };
   console.log(coins);
@@ -199,7 +199,7 @@ const CoinsTable = ({ coins, loading }) => {
                       <tr
                         key={idx + 1}
                         className="hover:bg-gray-50 cursor-pointer"
-                        onClick={() => handleClick(crypto.symbol)}
+                        onClick={() => handleClick(crypto.symbol, crypto)}
                       >
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {idx + 1}
