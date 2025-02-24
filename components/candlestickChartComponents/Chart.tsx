@@ -6,16 +6,17 @@ import "dayjs";
 import { candleStickOption } from "@/util/chartOption";
 import ReactApexChart from "react-apexcharts";
 
-const Chart = () => {
+const Chart = ({ symbol }) => {
   const [series, setSeries] = useState([]);
+  console.log(symbol);
 
   useEffect(() => {
     // Function to fetch historical candlestick data from Binance API.
     const fetchData = async () => {
-      const symbol = "BTCUSDT";
+      const binanceSymbol = symbol.toUpperCase();
       const interval = "1m"; // 1-minute interval
       const limit = 50; // number of candlesticks
-      const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
+      const url = `https://api.binance.com/api/v3/klines?symbol=${binanceSymbol}&interval=${interval}&limit=${limit}`;
 
       try {
         const response = await fetch(url);
