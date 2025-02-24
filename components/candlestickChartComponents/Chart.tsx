@@ -13,10 +13,11 @@ const Chart = ({ symbol }) => {
   useEffect(() => {
     // Function to fetch historical candlestick data from Binance API.
     const fetchData = async () => {
-      const binanceSymbol = symbol.toUpperCase();
+      const upperCaseSymbol = symbol.toLowerCase();
       const interval = "1m"; // 1-minute interval
       const limit = 50; // number of candlesticks
-      const url = `https://api.binance.com/api/v3/klines?symbol=${binanceSymbol}&interval=${interval}&limit=${limit}`;
+      // const url = `https://api.binance.com/api/v3/klines?symbol=${binanceSymbol}&interval=${interval}&limit=${limit}`;
+      const url = `https://api.coingecko.com/api/v3/coins/${upperCaseSymbol}/ohlc?vs_currency=usd&days=1`;
 
       try {
         const response = await fetch(url);
@@ -40,7 +41,7 @@ const Chart = ({ symbol }) => {
     };
 
     fetchData();
-  }, []);
+  }, [symbol]);
 
   //   [
   //     d[0], // Timestamp

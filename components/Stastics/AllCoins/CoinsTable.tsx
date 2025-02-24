@@ -168,7 +168,7 @@ const CoinsTable = ({ coins, loading }) => {
                       <tr
                         key={idx + 1}
                         className="hover:bg-gray-50 cursor-pointer"
-                        onClick={() => handleClick(crypto.symbol)}
+                        onClick={() => handleClick(crypto.name)}
                       >
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {idx + 1}
