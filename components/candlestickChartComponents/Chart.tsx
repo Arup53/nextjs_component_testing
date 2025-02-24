@@ -45,7 +45,7 @@ const Chart = ({ symbol }) => {
     };
 
     fetchData();
-  }, []);
+  }, [symbol]);
 
   //   [
   //     d[0], // Timestamp

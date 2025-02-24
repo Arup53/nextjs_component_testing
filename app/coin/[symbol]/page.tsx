@@ -1,6 +1,7 @@
 "use client";
 
 import Chart from "@/components/candlestickChartComponents/Chart";
+import CoinCard from "@/components/candlestickChartComponents/CoinCard";
 import { useParams } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
@@ -17,6 +18,7 @@ const CoinInfo = () => {
   return (
     <div>
       <Chart symbol={symbolWithSuffix} />
+      <CoinCard data={parsedData} />
     </div>
   );
 };
