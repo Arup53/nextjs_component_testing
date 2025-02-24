@@ -5,19 +5,23 @@ import { useEffect, useState } from "react";
 import "dayjs";
 import { candleStickOption } from "@/util/chartOption";
 import ReactApexChart from "react-apexcharts";
+import { useSearchParams } from "next/navigation";
 
 const Chart = ({ symbol }) => {
   const [series, setSeries] = useState([]);
   console.log(symbol);
+  const searchParams = useSearchParams();
+  const search = searchParams.get("data");
 
+  const parsedData = search ? JSON.parse(decodeURIComponent(search)) : null;
   useEffect(() => {
     // Function to fetch historical candlestick data from Binance API.
     const fetchData = async () => {
-      const upperCaseSymbol = symbol.toLowerCase();
+      const binancesymbol = symbol.toUpperCase();
+      console.log(binancesymbol);
       const interval = "1m"; // 1-minute interval
       const limit = 50; // number of candlesticks
-      // const url = `https://api.binance.com/api/v3/klines?symbol=${binanceSymbol}&interval=${interval}&limit=${limit}`;
-      const url = `https://api.coingecko.com/api/v3/coins/${upperCaseSymbol}/ohlc?vs_currency=usd&days=1`;
+      const url = `https://api.binance.com/api/v3/klines?symbol=${binancesymbol}&interval=${interval}&limit=${limit}`;
 
       try {
         const response = await fetch(url);
@@ -41,7 +45,7 @@ const Chart = ({ symbol }) => {
     };
 
     fetchData();
-  }, [symbol]);
+  }, []);
 
   //   [
   //     d[0], // Timestamp

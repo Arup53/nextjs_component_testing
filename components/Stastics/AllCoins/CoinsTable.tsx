@@ -108,9 +108,9 @@ const CoinsTable = ({ coins, loading }) => {
   const router = useRouter();
 
   const handleClick = (symbol) => {
-    router.push(`/coin/${symbol}`);
+    const data = JSON.stringify({ message: "some data" }); // Convert object to string
+    router.push(`/coin/${symbol}?data=${encodeURIComponent(data)}`); // Encode to handle special characters
   };
-
   console.log(coins);
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -163,12 +163,43 @@ const CoinsTable = ({ coins, loading }) => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {coins &&
                   coins?.coins
-                    ?.filter((crypto) => crypto.symbol !== "usdt")
+                    ?.filter(
+                      (crypto) =>
+                        crypto.symbol !== "usdt" &&
+                        crypto.symbol !== "steth" &&
+                        crypto.symbol !== "wsteth" &&
+                        crypto.symbol !== "leo" &&
+                        crypto.symbol !== "weth" &&
+                        crypto.symbol !== "hype" &&
+                        crypto.symbol !== "bgb" &&
+                        crypto.symbol !== "usde" &&
+                        crypto.symbol !== "weeth" &&
+                        crypto.symbol !== "wbt" &&
+                        crypto.symbol !== "ondo" &&
+                        crypto.symbol !== "tkx" &&
+                        crypto.symbol !== "mnt" &&
+                        crypto.symbol !== "okb" &&
+                        crypto.symbol !== "susds" &&
+                        crypto.symbol !== "cbbtc" &&
+                        crypto.symbol !== "kas" &&
+                        crypto.symbol !== "cro" &&
+                        crypto.symbol !== "lbtc" &&
+                        crypto.symbol !== "ftn" &&
+                        crypto.symbol !== "rseth" &&
+                        crypto.symbol !== "kcs" &&
+                        crypto.symbol !== "reth" &&
+                        crypto.symbol !== "meth" &&
+                        crypto.symbol !== "flr" &&
+                        crypto.symbol !== "usd0" &&
+                        crypto.symbol !== "ip" &&
+                        crypto.symbol !== "tel" &&
+                        crypto.symbol !== "solvbtc.bbn"
+                    )
                     .map((crypto, idx) => (
                       <tr
                         key={idx + 1}
                         className="hover:bg-gray-50 cursor-pointer"
-                        onClick={() => handleClick(crypto.name)}
+                        onClick={() => handleClick(crypto.symbol)}
                       >
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {idx + 1}
